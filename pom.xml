@@ -17,7 +17,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>booking-service</module>
-        <module>planetDetails-service</module>
+        <module>planetExplore-service</module>
         <module>api-gateway</module>
         <module>tripSchedule-service</module>
         <module>service-registry</module>
