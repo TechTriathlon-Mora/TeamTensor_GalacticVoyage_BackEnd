@@ -21,6 +21,7 @@
         <module>api-gateway</module>
         <module>tripSchedule-service</module>
         <module>service-registry</module>
+        <module>user-service</module>
     </modules>
 
     <properties>
