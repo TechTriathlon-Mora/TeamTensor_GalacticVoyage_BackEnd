@@ -18,12 +18,12 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripId;
     private String ticketName;
-    private Time depatureTime;
     private Time returnTime;
-    private Date depatureDate;
+    private Time depatureTime;
     private Date returnDate;
-    private String depatureLocation;
+    private Date departureDate;
     private String returnLocation;
+    private String departureLocation;
 
     @ElementCollection
     private List<Integer> availableSeats;
