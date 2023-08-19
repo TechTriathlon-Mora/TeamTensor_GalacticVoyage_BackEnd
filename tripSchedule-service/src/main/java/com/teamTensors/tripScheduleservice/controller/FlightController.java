@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utill.VarList;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("api/v1/flight")
@@ -74,6 +76,23 @@ public class FlightController {
             responseDto.setContent(null);
             return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/getFlight")
+    public ResponseEntity getAllFlight(){
+        try{
+            List<FlightDto> flightDtoList = flightService.getAllFlight();
+            responseDto.setCode(VarList.RSP_SUCCESS);
+            responseDto.setMessage("Success");
+            responseDto.setContent(flightDtoList);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        } catch (Exception ex){
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 }

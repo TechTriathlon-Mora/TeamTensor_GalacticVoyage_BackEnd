@@ -16,5 +16,4 @@ public class TripScheduleServiceApplication {
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
-
 }
