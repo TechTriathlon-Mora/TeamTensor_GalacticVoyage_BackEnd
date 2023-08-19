@@ -1,16 +1,17 @@
 package com.teamTensors.tripScheduleservice.Servivce;
 
 import com.teamTensors.tripScheduleservice.Repo.TripRepo;
-import com.teamTensors.tripScheduleservice.dto.FlightDto;
 import com.teamTensors.tripScheduleservice.dto.TripDto;
-import com.teamTensors.tripScheduleservice.entity.Flight;
 import com.teamTensors.tripScheduleservice.entity.Trip;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utill.VarList;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -38,6 +39,11 @@ public class TripService {
         } else{
             return VarList.RSP_NO_DATA_FOUND;
         }
+    }
+
+    public List<TripDto> getAllTrip(){
+        List<Trip> tripList = tripRepo.findAll();
+        return modelMapper.map(tripList, new TypeToken<ArrayList<TripDto>>(){}.getType());
     }
 
 }

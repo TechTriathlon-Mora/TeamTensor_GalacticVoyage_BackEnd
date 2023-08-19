@@ -1,7 +1,6 @@
 package com.teamTensors.tripScheduleservice.controller;
 
 import com.teamTensors.tripScheduleservice.Servivce.TripService;
-import com.teamTensors.tripScheduleservice.dto.FlightDto;
 import com.teamTensors.tripScheduleservice.dto.ResponseDto;
 import com.teamTensors.tripScheduleservice.dto.TripDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utill.VarList;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -75,6 +76,23 @@ public class TripController {
             responseDto.setContent(null);
             return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/getTrip")
+    public ResponseEntity getAllTrip(){
+        try{
+            List<TripDto> tripDtoList = tripService.getAllTrip();
+            responseDto.setCode(VarList.RSP_SUCCESS);
+            responseDto.setMessage("Success");
+            responseDto.setContent(tripDtoList);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        } catch (Exception ex){
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 }
