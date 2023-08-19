@@ -118,7 +118,27 @@ public class FlightController {
         }
     }
 
-
-
+    @DeleteMapping("/deleteFlight/{flightId}")
+    public ResponseEntity deleteUser(@PathVariable int flightId){
+        try{
+            String res = flightService.deleteFlight(flightId);
+            if (res.equals("00")){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(flightId);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("No employee available in this id ");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

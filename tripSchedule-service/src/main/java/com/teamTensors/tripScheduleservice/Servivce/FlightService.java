@@ -55,6 +55,15 @@ public class FlightService {
         }
     }
 
+    public String deleteFlight(int flightId){
+        if (flightRepo.existsById(flightId)){
+            flightRepo.deleteById(flightId);
+            return VarList.RSP_SUCCESS;
+        } else {
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
+
 
 
 }
