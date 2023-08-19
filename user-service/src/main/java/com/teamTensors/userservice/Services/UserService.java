@@ -47,5 +47,13 @@ public class UserService {
         return modelMapper.map(employeeList, new TypeToken<ArrayList<UserDto>>(){}.getType());
     }
 
+    public UserDto searchUser(int userId) {
+        if (userRepo.existsById(userId)) {
+            User user = userRepo.findById(userId).orElse(null);
+            return modelMapper.map(user, UserDto.class);
+        } else {
+            return null;
+        }
 
+    }
 }
