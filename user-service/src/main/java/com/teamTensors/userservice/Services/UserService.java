@@ -4,11 +4,14 @@ import com.teamTensors.userservice.dto.UserDto;
 import com.teamTensors.userservice.entity.User;
 import com.teamTensors.userservice.repo.UserRepo;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import util.VarList;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -38,4 +41,11 @@ public class UserService {
             return VarList.RSP_NO_DATA_FOUND;
         }
     }
+
+    public List<UserDto> getAllEmployee(){
+        List<User> employeeList = userRepo.findAll();
+        return modelMapper.map(employeeList, new TypeToken<ArrayList<UserDto>>(){}.getType());
+    }
+
+
 }

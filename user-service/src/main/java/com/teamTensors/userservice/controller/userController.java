@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import util.VarList;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("api/v1/user")
@@ -76,5 +78,26 @@ public class userController {
             return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    @GetMapping("/getUser")
+    public ResponseEntity getAllUser(){
+        try{
+            List<UserDto> userDtoList = userService.getAllEmployee();
+            responseDto.setCode(VarList.RSP_SUCCESS);
+            responseDto.setMessage("Success");
+            responseDto.setContent(userDtoList);
+            return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+        } catch (Exception ex){
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
+
 
 }
