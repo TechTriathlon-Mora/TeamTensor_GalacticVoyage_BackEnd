@@ -56,4 +56,13 @@ public class UserService {
         }
 
     }
+
+    public String deleteUser(int userId){
+        if (userRepo.existsById(userId)){
+            userRepo.deleteById(userId);
+            return VarList.RSP_SUCCESS;
+        } else {
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
 }

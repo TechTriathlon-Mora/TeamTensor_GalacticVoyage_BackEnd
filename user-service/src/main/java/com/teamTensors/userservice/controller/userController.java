@@ -121,7 +121,27 @@ public class userController {
         }
     }
 
-
-
+    @DeleteMapping("/deleteUser/{userId}")
+    public ResponseEntity deleteUser(@PathVariable int userId){
+        try{
+            String res = userService.deleteUser(userId);
+            if (res.equals("00")){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(userId);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("No employee available in this id ");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
