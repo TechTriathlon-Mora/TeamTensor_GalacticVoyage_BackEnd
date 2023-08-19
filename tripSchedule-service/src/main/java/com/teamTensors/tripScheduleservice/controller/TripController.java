@@ -49,4 +49,32 @@ public class TripController {
         }
     }
 
+    @PutMapping (value = "/updateTrip")
+    public ResponseEntity updateTrip(@RequestBody TripDto tripDto){
+        try{
+            String res = tripService.updateTrip(tripDto);
+            if (res.equals("00")){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(tripDto);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else if (res.equals("01")) {
+                responseDto.setCode(VarList.RSP_DUPLICATED);
+                responseDto.setMessage("Not a Registered Employee");
+                responseDto.setContent(tripDto);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("ERROR");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
