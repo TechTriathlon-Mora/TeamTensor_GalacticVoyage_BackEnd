@@ -46,6 +46,15 @@ public class FlightService {
         return modelMapper.map(employeeList, new TypeToken<ArrayList<FlightDto>>(){}.getType());
     }
 
+    public FlightDto searchFlight(int flightId) {
+        if (flightRepo.existsById(flightId)) {
+            Flight flight = flightRepo.findById(flightId).orElse(null);
+            return modelMapper.map(flight, FlightDto.class);
+        } else {
+            return null;
+        }
+    }
+
 
 
 }

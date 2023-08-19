@@ -95,4 +95,30 @@ public class FlightController {
 
     }
 
+    @GetMapping("/searchFlight/{flightId}")
+    public ResponseEntity searchFlight(@PathVariable int flightId){
+        try{
+            FlightDto flightDto = flightService.searchFlight(flightId);
+            if (flightDto != null){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(flightDto);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("No Employee Available in this Id");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+
 }
