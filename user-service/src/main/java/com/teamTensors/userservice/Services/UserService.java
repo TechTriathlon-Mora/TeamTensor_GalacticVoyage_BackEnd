@@ -28,4 +28,14 @@ public class UserService {
             return VarList.RSP_SUCCESS;
         }
     }
+
+
+    public String updateUser(UserDto userDto){
+        if (userRepo.existsById(userDto.getUserId())){
+            userRepo.save(modelMapper.map(userDto, User.class));
+            return VarList.RSP_SUCCESS;
+        } else{
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
 }

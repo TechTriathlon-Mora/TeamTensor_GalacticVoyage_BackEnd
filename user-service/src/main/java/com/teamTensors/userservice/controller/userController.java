@@ -49,4 +49,32 @@ public class userController {
         }
     }
 
+    @PutMapping (value = "/updateUser")
+    public ResponseEntity updateUser(@RequestBody UserDto userDto){
+        try{
+            String res = userService.updateUser(userDto);
+            if (res.equals("00")){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(userDto);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else if (res.equals("01")) {
+                responseDto.setCode(VarList.RSP_DUPLICATED);
+                responseDto.setMessage("Not a Registered Employee");
+                responseDto.setContent(userDto);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("ERROR");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
