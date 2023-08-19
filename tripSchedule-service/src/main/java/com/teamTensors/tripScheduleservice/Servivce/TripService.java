@@ -57,4 +57,13 @@ public class TripService {
             return null;
         }
     }
+
+    public String deleteTrip(int tripId){
+        if (tripRepo.existsById(tripId)){
+            tripRepo.deleteById(tripId);
+            return VarList.RSP_SUCCESS;
+        } else {
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
 }

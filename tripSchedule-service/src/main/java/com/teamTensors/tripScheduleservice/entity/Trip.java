@@ -17,7 +17,7 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripId;
-    private String ticketName;
+    private Float ticketPrice;
     private Time returnTime;
     private Time depatureTime;
     private Date returnDate;
