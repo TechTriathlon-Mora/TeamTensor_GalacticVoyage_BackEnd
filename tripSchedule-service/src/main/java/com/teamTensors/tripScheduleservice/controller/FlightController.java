@@ -48,4 +48,32 @@ public class FlightController {
         }
     }
 
+    @PutMapping (value = "/updateFlight")
+    public ResponseEntity updateFlight(@RequestBody FlightDto flightDto){
+        try{
+            String res = flightService.updateFlight(flightDto);
+            if (res.equals("00")){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(flightDto);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else if (res.equals("01")) {
+                responseDto.setCode(VarList.RSP_DUPLICATED);
+                responseDto.setMessage("Not a Registered Employee");
+                responseDto.setContent(flightDto);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("ERROR");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

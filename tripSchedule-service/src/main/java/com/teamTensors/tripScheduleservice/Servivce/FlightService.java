@@ -29,5 +29,14 @@ public class FlightService {
         }
     }
 
+    public String updateFlight(FlightDto flightDto){
+        if (flightRepo.existsById(flightDto.getFlightId())){
+            flightRepo.save(modelMapper.map(flightDto, Flight.class));
+            return VarList.RSP_SUCCESS;
+        } else{
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
+
 
 }

@@ -22,7 +22,6 @@ public class userController {
     @Autowired
     private ResponseDto responseDto;
 
-
     @PostMapping(value = "/saveUser")
     public ResponseEntity saveUser(@RequestBody UserDto userDto){
         try{
