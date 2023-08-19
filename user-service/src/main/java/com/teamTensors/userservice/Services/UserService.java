@@ -54,7 +54,6 @@ public class UserService {
         } else {
             return null;
         }
-
     }
 
     public String deleteUser(int userId){

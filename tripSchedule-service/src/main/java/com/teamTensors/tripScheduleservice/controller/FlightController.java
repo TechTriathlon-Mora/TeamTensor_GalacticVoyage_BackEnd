@@ -1,40 +1,40 @@
-package com.teamTensors.userservice.controller;
+package com.teamTensors.tripScheduleservice.controller;
 
-import com.teamTensors.userservice.Services.UserService;
-import com.teamTensors.userservice.dto.ResponseDto;
-import com.teamTensors.userservice.dto.UserDto;
+
+import com.teamTensors.tripScheduleservice.Servivce.FlightService;
+import com.teamTensors.tripScheduleservice.dto.FlightDto;
+import com.teamTensors.tripScheduleservice.dto.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import util.VarList;
+import utill.VarList;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/v1/user")
-public class userController {
-
+@RequestMapping("api/v1/flight")
+public class FlightController {
     @Autowired
-    private UserService userService;
+    private FlightService flightService;
 
     @Autowired
     private ResponseDto responseDto;
 
-    @PostMapping(value = "/saveUser")
-    public ResponseEntity saveUser(@RequestBody UserDto userDto){
+    @PostMapping(value = "/saveFlight")
+    public ResponseEntity saveUser(@RequestBody FlightDto flightDto){
         try{
-            String res = userService.saveUser(userDto);
+            String res = flightService.saveFlight(flightDto);
             if (res.equals("00")){
                 responseDto.setCode(VarList.RSP_SUCCESS);
                 responseDto.setMessage("Success");
-                responseDto.setContent(userDto);
+                responseDto.setContent(flightDto);
                 return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
             } else if (res.equals("86")) {
                 responseDto.setCode(VarList.RSP_DUPLICATED);
                 responseDto.setMessage("Employee have Registered");
-                responseDto.setContent(userDto);
+                responseDto.setContent(flightDto);
                 return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
             } else {
                 responseDto.setCode(VarList.RSP_FAIL);
@@ -50,19 +50,19 @@ public class userController {
         }
     }
 
-    @PutMapping (value = "/updateUser")
-    public ResponseEntity updateUser(@RequestBody UserDto userDto){
+    @PutMapping (value = "/updateFlight")
+    public ResponseEntity updateFlight(@RequestBody FlightDto flightDto){
         try{
-            String res = userService.updateUser(userDto);
+            String res = flightService.updateFlight(flightDto);
             if (res.equals("00")){
                 responseDto.setCode(VarList.RSP_SUCCESS);
                 responseDto.setMessage("Success");
-                responseDto.setContent(userDto);
+                responseDto.setContent(flightDto);
                 return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
             } else if (res.equals("01")) {
                 responseDto.setCode(VarList.RSP_DUPLICATED);
                 responseDto.setMessage("Not a Registered Employee");
-                responseDto.setContent(userDto);
+                responseDto.setContent(flightDto);
                 return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
             } else {
                 responseDto.setCode(VarList.RSP_FAIL);
@@ -78,14 +78,13 @@ public class userController {
         }
     }
 
-
-    @GetMapping("/getUser")
-    public ResponseEntity getAllUser(){
+    @GetMapping("/getFlight")
+    public ResponseEntity getAllFlight(){
         try{
-            List<UserDto> userDtoList = userService.getAllEmployee();
+            List<FlightDto> flightDtoList = flightService.getAllFlight();
             responseDto.setCode(VarList.RSP_SUCCESS);
             responseDto.setMessage("Success");
-            responseDto.setContent(userDtoList);
+            responseDto.setContent(flightDtoList);
             return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
         } catch (Exception ex){
             responseDto.setCode(VarList.RSP_ERROR);
@@ -94,17 +93,16 @@ public class userController {
             return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-
     }
 
-    @GetMapping("/searchUser/{userId}")
-    public ResponseEntity searchUser(@PathVariable int userId){
+    @GetMapping("/searchFlight/{flightId}")
+    public ResponseEntity searchFlight(@PathVariable int flightId){
         try{
-            UserDto userDto = userService.searchUser(userId);
-            if (userDto != null){
+            FlightDto flightDto = flightService.searchFlight(flightId);
+            if (flightDto != null){
                 responseDto.setCode(VarList.RSP_SUCCESS);
                 responseDto.setMessage("Success");
-                responseDto.setContent(userDto);
+                responseDto.setContent(flightDto);
                 return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
             } else {
                 responseDto.setCode(VarList.RSP_FAIL);
@@ -120,14 +118,14 @@ public class userController {
         }
     }
 
-    @DeleteMapping("/deleteUser/{userId}")
-    public ResponseEntity deleteUser(@PathVariable int userId){
+    @DeleteMapping("/deleteFlight/{flightId}")
+    public ResponseEntity deleteUser(@PathVariable int flightId){
         try{
-            String res = userService.deleteUser(userId);
+            String res = flightService.deleteFlight(flightId);
             if (res.equals("00")){
                 responseDto.setCode(VarList.RSP_SUCCESS);
                 responseDto.setMessage("Success");
-                responseDto.setContent(userId);
+                responseDto.setContent(flightId);
                 return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
             } else {
                 responseDto.setCode(VarList.RSP_FAIL);
