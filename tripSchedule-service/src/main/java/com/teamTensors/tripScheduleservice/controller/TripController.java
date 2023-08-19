@@ -96,7 +96,6 @@ public class TripController {
 
     }
 
-
     @GetMapping("/searchTrip/{tripId}")
     public ResponseEntity searchTrip(@PathVariable int tripId){
         try{
