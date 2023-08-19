@@ -41,15 +41,12 @@ public class PlanetController {
 //    }
 
     @GetMapping
-    public List<Planet> getAllPlanets() {
-        try {
-            List<Planet> planets = planetRepository.findAll();
-            System.out.println("Number of planets retrieved: " + planets.size());
-            return planets;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+    public ResponseEntity<List<Planet>> getAllPlanets() {
+        List<Planet> planets = planetService.getPlanets();
+        if (planets.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(planets);
     }
 
 

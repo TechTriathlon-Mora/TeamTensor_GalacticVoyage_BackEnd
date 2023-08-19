@@ -10,8 +10,6 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class PlanetResponse {
 
     private String id;
