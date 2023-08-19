@@ -1,6 +1,7 @@
 package com.teamTensors.tripScheduleservice.controller;
 
 import com.teamTensors.tripScheduleservice.Servivce.TripService;
+import com.teamTensors.tripScheduleservice.dto.FlightDto;
 import com.teamTensors.tripScheduleservice.dto.ResponseDto;
 import com.teamTensors.tripScheduleservice.dto.TripDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,30 @@ public class TripController {
             return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+
+    @GetMapping("/searchTrip/{tripId}")
+    public ResponseEntity searchTrip(@PathVariable int tripId){
+        try{
+            TripDto tripDto = tripService.searchTrip(tripId);
+            if (tripDto != null){
+                responseDto.setCode(VarList.RSP_SUCCESS);
+                responseDto.setMessage("Success");
+                responseDto.setContent(tripDto);
+                return new ResponseEntity(responseDto, HttpStatus.ACCEPTED);
+            } else {
+                responseDto.setCode(VarList.RSP_FAIL);
+                responseDto.setMessage("No Employee Available in this Id");
+                responseDto.setContent(null);
+                return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            responseDto.setCode(VarList.RSP_ERROR);
+            responseDto.setMessage(ex.getMessage());
+            responseDto.setContent(null);
+            return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

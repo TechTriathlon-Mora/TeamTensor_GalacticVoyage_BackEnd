@@ -1,7 +1,9 @@
 package com.teamTensors.tripScheduleservice.Servivce;
 
 import com.teamTensors.tripScheduleservice.Repo.TripRepo;
+import com.teamTensors.tripScheduleservice.dto.FlightDto;
 import com.teamTensors.tripScheduleservice.dto.TripDto;
+import com.teamTensors.tripScheduleservice.entity.Flight;
 import com.teamTensors.tripScheduleservice.entity.Trip;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -46,4 +48,13 @@ public class TripService {
         return modelMapper.map(tripList, new TypeToken<ArrayList<TripDto>>(){}.getType());
     }
 
+
+    public TripDto searchTrip(int tripId) {
+        if (tripRepo.existsById(tripId)) {
+            Trip trip = tripRepo.findById(tripId).orElse(null);
+            return modelMapper.map(trip, TripDto.class);
+        } else {
+            return null;
+        }
+    }
 }
