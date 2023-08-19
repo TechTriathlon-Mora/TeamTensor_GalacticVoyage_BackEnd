@@ -19,13 +19,15 @@ public class TripDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripId;
-    private String ticketName;
-    private Time departureTime;
+    private Float ticketPrice;
     private Time returnTime;
-    private Date departureDate;
+    private Time depatureTime;
     private Date returnDate;
-    private String departureLocation;
+    private Date departureDate;
     private String returnLocation;
+    private String departureLocation;
+    private String test;
+
 
     @ElementCollection
     private List<Integer> availableSeats;
