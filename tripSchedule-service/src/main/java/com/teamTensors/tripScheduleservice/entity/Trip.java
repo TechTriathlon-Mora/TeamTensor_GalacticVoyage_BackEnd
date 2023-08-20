@@ -1,8 +1,6 @@
 package com.teamTensors.tripScheduleservice.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -12,7 +10,8 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +23,10 @@ public class Trip {
     private Date departureDate;
     private String returnLocation;
     private String departureLocation;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="flight_id", referencedColumnName = "flightId")
+    private Flight flight;
 
     @ElementCollection
     private List<Integer> availableSeats;
