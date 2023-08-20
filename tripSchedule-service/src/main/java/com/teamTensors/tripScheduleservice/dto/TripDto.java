@@ -1,5 +1,6 @@
 package com.teamTensors.tripScheduleservice.dto;
 
+import com.teamTensors.tripScheduleservice.entity.Flight;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class TripDto {
     private String returnLocation;
     private String departureLocation;
     private String test;
+    private Flight flight;
 
 
     @ElementCollection

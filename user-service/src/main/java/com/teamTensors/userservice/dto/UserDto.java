@@ -1,5 +1,6 @@
 package com.teamTensors.userservice.dto;
 
+import com.teamTensors.userservice.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,5 @@ public class UserDto {
     private String userName;
     private String userAddress;
     private String userNumber;
+    private UserRole role;
 }
