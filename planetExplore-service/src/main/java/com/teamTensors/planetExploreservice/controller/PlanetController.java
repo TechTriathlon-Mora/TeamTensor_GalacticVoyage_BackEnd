@@ -49,6 +49,10 @@ public class PlanetController {
         return ResponseEntity.ok(planets);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Planet> getPlanetById(@PathVariable("id") String id) {
+        return planetService.getPlanetById(id);
+    }
 
 
 
