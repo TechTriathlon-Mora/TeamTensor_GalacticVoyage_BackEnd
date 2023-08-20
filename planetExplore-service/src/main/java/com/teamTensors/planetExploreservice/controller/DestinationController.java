@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/destination")
+@RequestMapping("/api/planet/destination")
 public class DestinationController {
     @Autowired
     DestinationService destinationService;
