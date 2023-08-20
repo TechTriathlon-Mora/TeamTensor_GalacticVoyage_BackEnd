@@ -4,6 +4,7 @@ import com.teamTensors.planetExploreservice.dto.PlanetRequest;
 import com.teamTensors.planetExploreservice.dto.PlanetResponse;
 import com.teamTensors.planetExploreservice.model.Planet;
 import com.teamTensors.planetExploreservice.repository.PlanetRepository;
+import com.teamTensors.planetExploreservice.service.PlanetListService;
 import com.teamTensors.planetExploreservice.service.PlanetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,6 @@ public class PlanetController {
     @Autowired
     private PlanetService planetService;
 
-    @Autowired
-    private PlanetRepository planetRepository;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String createPlanet(@RequestBody PlanetRequest planetRequest) {
@@ -42,19 +41,14 @@ public class PlanetController {
 
     @GetMapping
     public ResponseEntity<List<Planet>> getAllPlanets() {
-        List<Planet> planets = planetService.getPlanets();
-        if (planets.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(planets);
+        return planetService.getAllPlanets();
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Planet> getPlanetById(@PathVariable("id") String id) {
         return planetService.getPlanetById(id);
     }
-
-
 
     @DeleteMapping
     public ResponseEntity<HttpStatus> deleteAll() {
