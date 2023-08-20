@@ -75,6 +75,41 @@ public class PlanetService {
         return planetRepository.findAll();
     }
 
+    public ResponseEntity<Planet> getPlanetById(String id){
+        Optional<Planet> data = planetRepository.findById(id);
+
+        if (data.isPresent()) {
+            return new ResponseEntity<>(data.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<List<Planet>> getPlanetByName(String name) {
+//        try {
+//            List<Planet> planets = new ArrayList<>();
+//            if(name == null){
+//                planetRepository.findAll().forEach(planets::add);
+//            }
+//            else{
+//                planetRepository.getByName(name).forEach(planets::add);
+//            }
+//            if (planets.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//
+//            return new ResponseEntity<>(planets, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+
+        List<Planet> planets = planetRepository.findByNameContaining(name);
+        if (planets.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(planets, HttpStatus.OK);
+    }
+
     public ResponseEntity<HttpStatus> deleteAllPlanets(){
         try {
             planetRepository.deleteAll();
